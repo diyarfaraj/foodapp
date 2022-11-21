@@ -1,18 +1,23 @@
 import React from "react";
 import SingleResult from "./SingleResult";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   ListRenderItemInfo,
+  TouchableOpacity,
 } from "react-native";
+import { RootStackParamList } from "../types/rootStackParamList";
 
 interface Props {
   title: string;
   res: Restaurant[];
+  navigation: NativeStackNavigationProp<RootStackParamList, "Search">;
 }
-const ResultsList = ({ title, res }: Props) => {
+const ResultsList = ({ title, res, navigation }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -21,14 +26,18 @@ const ResultsList = ({ title, res }: Props) => {
         horizontal
         data={res}
         keyExtractor={(res) => res.id}
-        renderItem={renderRestaurantItem}
+        renderItem={(itemData: ListRenderItemInfo<Restaurant>) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ResultDetail")}
+            >
+              <SingleResult result={itemData.item} />
+            </TouchableOpacity>
+          );
+        }}
       />
     </View>
   );
-};
-
-const renderRestaurantItem = (itemData: ListRenderItemInfo<Restaurant>) => {
-  return <SingleResult result={itemData.item} />;
 };
 
 const styles = StyleSheet.create({

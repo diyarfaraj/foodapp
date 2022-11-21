@@ -4,14 +4,14 @@ import SearchBar from "../components/SearchBar";
 import yelp from "../api/yelp";
 import useResults from "../hooks/useResults";
 import ResultsList from "../components/ResultsList";
-import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/rootStackParamList";
 
-type searchScreenProp = StackNavigationProp<RootStackParamList, "Search">;
+export interface SearchProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, "Search">;
+}
 
-const SearchScreen = ({ props }: any) => {
-  console.log(props);
-
+const SearchScreen = ({ navigation }: SearchProps) => {
   const [term, setTerm] = useState("");
   const [searchApi, result, errors] = useResults();
 
@@ -31,11 +31,31 @@ const SearchScreen = ({ props }: any) => {
       {errors ? <Text>{errors}</Text> : null}
       <Text>nr of results: {result.length}</Text>
       <ScrollView>
-        <ResultsList res={filterResultsByPrice("$")} title="Billigt" />
-        <ResultsList res={filterResultsByPrice("$$")} title="Lyx" />
-        <ResultsList res={filterResultsByPrice("$$$")} title="All in" />
-        <ResultsList res={filterResultsByPrice("$$$")} title="All in" />
-        <ResultsList res={filterResultsByPrice("$$$")} title="All in" />
+        <ResultsList
+          navigation={navigation}
+          res={filterResultsByPrice("$")}
+          title="Billigt"
+        />
+        <ResultsList
+          navigation={navigation}
+          res={filterResultsByPrice("$$")}
+          title="Lyx"
+        />
+        <ResultsList
+          navigation={navigation}
+          res={filterResultsByPrice("$$$")}
+          title="All in"
+        />
+        <ResultsList
+          navigation={navigation}
+          res={filterResultsByPrice("$$$")}
+          title="All in"
+        />
+        <ResultsList
+          navigation={navigation}
+          res={filterResultsByPrice("$$$")}
+          title="All in"
+        />
       </ScrollView>
     </>
   );
