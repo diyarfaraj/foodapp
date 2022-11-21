@@ -1,8 +1,9 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { NavigationInjectedProps, NavigationState } from "react-navigation";
 import { RootStackParamList } from "../types/rootStackParamList";
+import yelp from "../api/yelp";
 
 interface ParamType {
   title: string;
@@ -18,11 +19,27 @@ interface OwnProps {
 type Props = OwnProps & NavigationInjectedProps;
 
 const ResultDetailScreen = ({ navigation }: Props) => {
+  const [result, setResult] = useState<Restaurant | undefined>(undefined);
   const id = navigation.state.params?.id;
+
+  console.log(result?.photos);
+  const getDetails = async (id: string) => {
+    try {
+      const res = await yelp.get(`/${id}`);
+      setResult(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getDetails(id);
+  }, []);
+
   return (
     <View>
       <Text>results show</Text>
-      <Text>{id} the id </Text>
+      <Text>{result?.name} the id </Text>
     </View>
   );
 };

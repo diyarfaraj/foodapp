@@ -5,4 +5,5 @@ type Restaurant = {
   image_url: string;
   rating: number;
   review_count: number;
+  photos: string[];
 };
