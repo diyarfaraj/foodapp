@@ -15,7 +15,7 @@ import { RootStackParamList } from "../types/rootStackParamList";
 interface Props {
   title: string;
   res: Restaurant[];
-  navigation: NativeStackNavigationProp<RootStackParamList, "Search">;
+  navigation: NativeStackNavigationProp<RootStackParamList, "ResultDetail">;
 }
 const ResultsList = ({ title, res, navigation }: Props) => {
   return (
@@ -29,7 +29,9 @@ const ResultsList = ({ title, res, navigation }: Props) => {
         renderItem={(itemData: ListRenderItemInfo<Restaurant>) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate("ResultDetail")}
+              onPress={() =>
+                navigation.navigate("ResultDetail", { id: itemData.item.id })
+              }
             >
               <SingleResult result={itemData.item} />
             </TouchableOpacity>

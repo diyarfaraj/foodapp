@@ -8,7 +8,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/rootStackParamList";
 
 export interface SearchProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, "Search">;
+  navigation: NativeStackNavigationProp<RootStackParamList, "ResultDetail">;
 }
 
 const SearchScreen = ({ navigation }: SearchProps) => {

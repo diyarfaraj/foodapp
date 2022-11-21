@@ -1,4 +1,4 @@
 export type RootStackParamList = {
   Search: undefined;
-  Detail: undefined;
+  ResultDetail: { id: string };
 };
