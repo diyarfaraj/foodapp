@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import SearchBar from "../components/SearchBar";
 import yelp from "../api/yelp";
 import useResults from "../hooks/useResults";
@@ -13,7 +19,7 @@ export interface SearchProps {
 
 const SearchScreen = ({ navigation }: SearchProps) => {
   const [term, setTerm] = useState("");
-  const [searchApi, result, errors] = useResults();
+  const [searchApi, result, errors, loading] = useResults();
 
   const filterResultsByPrice = (price: string): Restaurant[] => {
     return result.filter((result) => {
@@ -29,34 +35,37 @@ const SearchScreen = ({ navigation }: SearchProps) => {
         onTermSubmit={() => searchApi(term)}
       />
       {errors ? <Text>{errors}</Text> : null}
-      <Text>nr of results: {result.length}</Text>
-      <ScrollView>
-        <ResultsList
-          navigation={navigation}
-          res={filterResultsByPrice("$")}
-          title="Billigt"
-        />
-        <ResultsList
-          navigation={navigation}
-          res={filterResultsByPrice("$$")}
-          title="Lyx"
-        />
-        <ResultsList
-          navigation={navigation}
-          res={filterResultsByPrice("$$$")}
-          title="All in"
-        />
-        <ResultsList
-          navigation={navigation}
-          res={filterResultsByPrice("$$$")}
-          title="All in"
-        />
-        <ResultsList
-          navigation={navigation}
-          res={filterResultsByPrice("$$$")}
-          title="All in"
-        />
-      </ScrollView>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <ScrollView>
+          <ResultsList
+            navigation={navigation}
+            res={filterResultsByPrice("$")}
+            title="Billigt"
+          />
+          <ResultsList
+            navigation={navigation}
+            res={filterResultsByPrice("$$")}
+            title="Lyx"
+          />
+          <ResultsList
+            navigation={navigation}
+            res={filterResultsByPrice("$$$")}
+            title="All in"
+          />
+          <ResultsList
+            navigation={navigation}
+            res={filterResultsByPrice("$$$")}
+            title="All in"
+          />
+          <ResultsList
+            navigation={navigation}
+            res={filterResultsByPrice("$$$")}
+            title="All in"
+          />
+        </ScrollView>
+      )}
     </>
   );
 };

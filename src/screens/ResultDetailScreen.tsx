@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { NavigationInjectedProps, NavigationState } from "react-navigation";
 import { RootStackParamList } from "../types/rootStackParamList";
 import yelp from "../api/yelp";
@@ -36,14 +36,30 @@ const ResultDetailScreen = ({ navigation }: Props) => {
     getDetails(id);
   }, []);
 
+  if (!result) {
+    return null;
+  }
+
   return (
     <View>
       <Text>results show</Text>
       <Text>{result?.name} the id </Text>
+      <FlatList
+        data={result.photos}
+        keyExtractor={(photo) => photo}
+        renderItem={({ item }) => {
+          return <Image style={styles.image} source={{ uri: item }} />;
+        }}
+      />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    height: 200,
+    width: 300,
+  },
+});
 
 export default ResultDetailScreen;

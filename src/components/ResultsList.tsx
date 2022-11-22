@@ -18,6 +18,9 @@ interface Props {
   navigation: NativeStackNavigationProp<RootStackParamList, "ResultDetail">;
 }
 const ResultsList = ({ title, res, navigation }: Props) => {
+  if (!res.length) {
+    return null;
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
