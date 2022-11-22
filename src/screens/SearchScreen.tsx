@@ -36,7 +36,7 @@ const SearchScreen = ({ navigation }: SearchProps) => {
       />
       {errors ? <Text>{errors}</Text> : null}
       {loading ? (
-        <ActivityIndicator />
+        <ActivityIndicator size={"large"} />
       ) : (
         <ScrollView>
           <ResultsList
