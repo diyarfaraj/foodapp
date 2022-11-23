@@ -20,8 +20,8 @@ type Props = OwnProps & NavigationInjectedProps;
 
 const ResultDetailScreen = ({ navigation }: Props) => {
   const [result, setResult] = useState<Restaurant | undefined>(undefined);
-  const id = navigation.state.params?.id;
-
+  //const id = navigation.state.params?.id;
+  console.log(navigation);
   console.log(result?.photos);
   const getDetails = async (id: string) => {
     try {
@@ -32,9 +32,9 @@ const ResultDetailScreen = ({ navigation }: Props) => {
     }
   };
 
-  useEffect(() => {
+  /*  useEffect(() => {
     getDetails(id);
-  }, []);
+  }, []); */
 
   if (!result) {
     return null;

@@ -2,8 +2,12 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import SearchScreen from "./src/screens/SearchScreen";
 import ResultDetailScreen from "./src/screens/ResultDetailScreen";
+import FavoritesScreen from "./src/screens/FavoritesScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import MainContainer from "./src/navigation/MainContainer";
 
-const navigator = createStackNavigator(
+/* const navigator = createStackNavigator(
   {
     Search: SearchScreen,
     ResultDetail: ResultDetailScreen,
@@ -16,4 +20,12 @@ const navigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(navigator);
+const Tab = createBottomTabNavigator();
+
+export default createAppContainer(navigator); */
+
+function App() {
+  return <MainContainer />;
+}
+
+export default App;
